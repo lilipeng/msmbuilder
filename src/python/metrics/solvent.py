@@ -1,7 +1,7 @@
 import logging
 
 from msmbuilder import io
-from msmbuilder.geometry import contact
+import mdtraj as md
 
 from baseclasses import Vectorized
 import numpy as np
@@ -82,11 +82,11 @@ class SolventFp(Vectorized):
         for i, prot_i in enumerate(prot_indices):
             # For each protein atom, calculate distance to all water
             # molecules
-            atom_contacts = np.empty((len(water_indices), 2))
-            atom_contacts[:, 0] = prot_i
-            atom_contacts[:, 1] = water_indices
+            atom_pairs = np.empty((len(water_indices), 2))
+            atom_pairs[:, 0] = prot_i
+            atom_pairs[:, 1] = water_indices
             # Get a traj_length x n_water_indices vector of distances
-            distances = contact.atom_distances(traj, atom_contacts)
+            distances = md.compute_distances(traj, atom_pairs, periodic=True)
             # Calculate guassian kernel
             distances = np.exp(-distances / (2 * sigma * sigma))
 
