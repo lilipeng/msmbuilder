@@ -74,10 +74,9 @@ class SolventFp(Vectorized):
         prot_indices = self.solute_indices
         water_indices = self.solvent_indices
         sigma = self.sigma
-        traj = trajectory['XYZList']
 
         # The result vector
-        fingerprints = np.zeros((len(traj), len(prot_indices)))
+        fingerprints = np.zeros((trajectory.n_frames, len(prot_indices)))
 
         for i, prot_i in enumerate(prot_indices):
             # For each protein atom, calculate distance to all water
@@ -86,7 +85,7 @@ class SolventFp(Vectorized):
             atom_pairs[:, 0] = prot_i
             atom_pairs[:, 1] = water_indices
             # Get a traj_length x n_water_indices vector of distances
-            distances = md.compute_distances(traj, atom_pairs, periodic=True)
+            distances = md.compute_distances(trajectory, atom_pairs, periodic=True)
             # Calculate guassian kernel
             distances = np.exp(-distances / (2 * sigma * sigma))
 
