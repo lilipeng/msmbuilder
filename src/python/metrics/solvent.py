@@ -94,6 +94,7 @@ class SolventFp(Vectorized):
 
         return fingerprints
 
+
 def _check_indices(indices, name):
     """Validate input indices."""
     if indices is not None:
@@ -105,6 +106,7 @@ def _check_indices(indices, name):
             raise ValueError('%s indices must contain ints' % name)
     else:
         raise ValueError('%s indices must be specified' % name)
+
 
 class OuterProductAssignment(object):
     """Class to facilitate taking the outer product of the result of
