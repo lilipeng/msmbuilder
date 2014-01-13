@@ -1,7 +1,7 @@
 import logging
 
-from msmbuilder import io
 import mdtraj as md
+from mdtraj import io
 
 from baseclasses import Vectorized
 import numpy as np
