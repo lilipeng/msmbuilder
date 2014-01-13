@@ -9,6 +9,7 @@ import numpy as np
 
 logger = logging.getLogger(__name__)
 
+
 class SolventFp(Vectorized):
     """Distance metric for calculating distances between frames based on their
     solvent signature as in Gu et al. BMC Bioinformatics 2013, 14(Suppl 2):S8.
@@ -85,7 +86,9 @@ class SolventFp(Vectorized):
             atom_pairs[:, 0] = prot_i
             atom_pairs[:, 1] = water_indices
             # Get a traj_length x n_water_indices vector of distances
-            distances = md.compute_distances(trajectory, atom_pairs, periodic=True)
+            distances = md.compute_distances(trajectory,
+                                             atom_pairs,
+                                             periodic=True)
             # Calculate guassian kernel
             distances = np.exp(-distances / (2 * sigma * sigma))
 
