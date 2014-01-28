@@ -18,7 +18,8 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
-from msmbuilder import arglib, io
+from msmbuilder import arglib
+from mdtraj import io
 from msmbuilder.metrics import solvent
 import logging
 logger = logging.getLogger('msmbuilder.scripts.AssignOuter')
