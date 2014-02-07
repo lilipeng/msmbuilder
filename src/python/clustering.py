@@ -1280,3 +1280,29 @@ class KMeans(BaseFlatClusterer):
         distances = self._model.transform(self.ptraj)  # Distances to ALL cluster centers
         self._generator_indices = distances.argmin(0)
         self._distances = np.array([distances[i, self._assignments[i]] for i in range(len(self.ptraj))])
+        
+
+    def get_assignments(self):
+        """Assign the trajectories you passed into the constructor based on
+        generators that have been identified
+
+        Returns
+        -------
+        assignments : ndarray
+            2D array of assignments where k = assignments[i,j] means that the
+            jth frame in the ith trajectory is assigned to the center whose
+            coordinates are in the kth frame of the trajectory in
+            get_generators_as_traj()
+        """
+
+        self._ensure_generators_computed()
+        self._ensure_assignments_and_distances_computed()
+
+        assgn_list = split(self._assignments, self._traj_lengths)
+
+        output = -1 * np.ones((len(self._traj_lengths), max(self._traj_lengths)), dtype='int')
+
+        for i, traj_assign in enumerate(assgn_list):
+            output[i][0:len(traj_assign)] = traj_assign
+
+        return output
