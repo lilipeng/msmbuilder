@@ -192,7 +192,7 @@ def cluster(metric, trajectories, ptrajs, args, **kwargs):
             method=args.hierarchical_method)
         clusterer.save_to_disk(zmatrix_fn)
         logger.info('ZMatrix saved to %s. Use AssignHierarchical.py to assign the data', zmatrix_fn)
-    if args.alg == 'kmeans':
+    elif args.alg == 'kmeans':
         
         if args.stride != 1:
             logger.error("You must supply stride = 1 with kmeans")
